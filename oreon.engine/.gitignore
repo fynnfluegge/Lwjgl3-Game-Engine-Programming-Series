@@ -1,0 +1,8 @@
+bin/core/
+bin/modules/
+bin/apps/
+.project
+.classpath
+/bin/
+/target/
+.settings
