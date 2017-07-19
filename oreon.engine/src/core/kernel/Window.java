@@ -48,7 +48,7 @@ public class Window {
 	
 	public void init(){}
 	
-	public void create(int width, int height, String title)
+	public void create(int width, int height)
 	{
 		setWidth(width);
 		setHeight(height);

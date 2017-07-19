@@ -32,13 +32,13 @@ public class CoreEngine {
 	@SuppressWarnings("unused")
 	private GLFWErrorCallback errorCallback;
 	
-	public void createWindow(int width, int height, String title)
+	public void createWindow(int width, int height)
 	{
 		glfwInit();
 		
 		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 		
-		Window.getInstance().create(width, height, title);
+		Window.getInstance().create(width, height);
 		
 		renderingEngine = new RenderingEngine();
 		
