@@ -1,4 +1,4 @@
-package core.texture;
+package core.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

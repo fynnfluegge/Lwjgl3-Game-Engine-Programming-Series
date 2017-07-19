@@ -1,11 +1,6 @@
 package core.kernel;
 
 import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL11.GL_FLOAT;
-import static org.lwjgl.opengl.GL11.GL_RGBA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glTexImage2D;
-import static org.lwjgl.opengl.GL30.GL_RGBA16F;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
 import static org.lwjgl.glfw.GLFW.glfwSetWindowSize;
@@ -26,17 +21,18 @@ import java.nio.ByteBuffer;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.opengl.GL;
 
-import core.buffers.Framebuffer;
-import core.texture.ImageLoader;
-import core.texture.Texture2D;
+import core.utils.ImageLoader;
 
+/**
+ * 
+ * @author oreon3D
+ * GLFW Window implementation
+ *
+ */
 public class Window {
 
-private static Window instance = null;
-	
-	private Framebuffer fbo;
-	private Texture2D sceneTexture;
-	
+	private static Window instance = null;
+
 	private long window;
 	private int width;
 	private int height;
@@ -50,21 +46,7 @@ private static Window instance = null;
 	      return instance;
 	}
 	
-	public void init(){
-		
-		sceneTexture = new Texture2D();
-		getSceneTexture().generate();
-		getSceneTexture().bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, getWidth(), getHeight(), 0, GL_RGBA, GL_FLOAT, (ByteBuffer) null);
-		getSceneTexture().bilinearFilter();
-		getSceneTexture().clampToEdge();
-		
-		fbo = new Framebuffer();
-		fbo.bind();
-		fbo.createColorTextureAttachment(getSceneTexture().getId(),0);
-		fbo.checkStatus();
-		fbo.unbind();
-	}
+	public void init(){}
 	
 	public void create(int width, int height, String title)
 	{
@@ -136,14 +118,6 @@ private static Window instance = null;
 	
 	public void setHeight(int height) {
 		this.height = height;
-	}
-	
-	public Texture2D getSceneTexture() {
-		return sceneTexture;
-	}
-
-	public Framebuffer getFBO() {
-		return fbo;
 	}
 	
 	public long getWindow() {

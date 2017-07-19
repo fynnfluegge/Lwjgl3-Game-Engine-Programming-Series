@@ -12,7 +12,9 @@ public class Game {
 		engine.start();
 	}
 	
-	public void init(){}
+	public void init(){
+		engine.init();
+	}
 	
 	public CoreEngine getEngine() {
 		return engine;

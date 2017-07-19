@@ -5,8 +5,8 @@ public class Mesh{
 	private Vertex[] vertices;
 	private int[] indices;
 	private int instances;
-	private boolean tangentSpace;
-	private boolean instanced;
+	private boolean isTangentSpace;
+	private boolean isInstanced;
 	
 	public Mesh(Vertex[] vertices, int[] indices)
 	{
@@ -30,20 +30,12 @@ public class Mesh{
 		this.indices = indices;
 	}
 
-	public boolean isTangentSpace() {
-		return tangentSpace;
-	}
-
-	public void setTangentSpace(boolean tangentSpace) {
-		this.tangentSpace = tangentSpace;
-	}
-
 	public boolean isInstanced() {
-		return instanced;
+		return isInstanced;
 	}
 
 	public void setInstanced(boolean instanced) {
-		this.instanced = instanced;
+		this.isInstanced = instanced;
 	}
 
 	public int getInstances() {
@@ -52,5 +44,13 @@ public class Mesh{
 
 	public void setInstances(int instances) {
 		this.instances = instances;
+	}
+
+	public boolean isTangentSpace() {
+		return isTangentSpace;
+	}
+
+	public void setTangentSpace(boolean isTangentSpace) {
+		this.isTangentSpace = isTangentSpace;
 	}
 }

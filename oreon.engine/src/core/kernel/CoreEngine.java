@@ -10,17 +10,24 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
-import core.configs.Default;
 import core.utils.Constants;
+import core.kernel.RenderingEngine;
 
-
+/**
+ * 
+ * @author oreon3D
+ * CoreEngine implements the game loop and manages window close requests.
+ * On close request the CoreEngine ensures a clean shutdown of the
+ * RenderingEngine and modules.
+ *
+ */
 public class CoreEngine {
 
 	private static int fps;
 	private static float framerate = 200;
 	private static float frameTime = 1.0f/framerate;
 	private boolean isRunning;
-	private static boolean shareGLContext = false;
+	private RenderingEngine renderingEngine;
 	
 	@SuppressWarnings("unused")
 	private GLFWErrorCallback errorCallback;
@@ -32,12 +39,16 @@ public class CoreEngine {
 		glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
 		
 		Window.getInstance().create(width, height, title);
+		
+		renderingEngine = new RenderingEngine();
+		
 		getDeviceProperties();
 	}
 	
 	public void init()
 	{
-		Default.init();
+		core.configs.Default.init();
+		renderingEngine.init();
 	}
 	
 	public void start()
@@ -116,13 +127,14 @@ public class CoreEngine {
 	}
 	
 	private void render(){
-		Default.clearScreen();
+		renderingEngine.render();
 	}
 	
 	private void update()
 	{
 		Input.getInstance().update();
 		Camera.getInstance().update();
+		renderingEngine.update();
 	}
 	
 	private void cleanUp()
@@ -150,13 +162,5 @@ public class CoreEngine {
 
 	public static void setFps(int fps) {
 		CoreEngine.fps = fps;
-	}
-
-	public static boolean isShareGLContext() {
-		return shareGLContext;
-	}
-
-	public static void setShareGLContext(boolean shareGLContext) {
-		CoreEngine.shareGLContext = shareGLContext;
 	}
 }
