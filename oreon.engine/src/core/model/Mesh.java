@@ -1,4 +1,4 @@
-package core.geometry;
+package core.model;
 
 public class Mesh{
 

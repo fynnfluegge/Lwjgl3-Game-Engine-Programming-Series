@@ -1,4 +1,4 @@
-package core.geometry;
+package core.model;
 
 import core.math.Vec2f;
 import core.math.Vec3f;

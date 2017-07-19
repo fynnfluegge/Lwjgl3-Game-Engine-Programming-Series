@@ -6,11 +6,11 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import core.geometry.Vertex;
 import core.math.Matrix4f;
 import core.math.Quaternion;
 import core.math.Vec2f;
 import core.math.Vec3f;
+import core.model.Vertex;
 
 public class BufferUtil {
 
