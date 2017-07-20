@@ -3,9 +3,10 @@
 
 ### Template implements:
 * GLFW Window
-* GLFW Inputhandler
+* GLFW Input-Handler
 * Game Loop
 * Camera
 * 3D Math (Matrices,Vectors)
+* Shader Program Template
 * OBJ-File Loader
 * GLSL-File Loader

@@ -12,14 +12,7 @@ public class Texture2D {
 	private int width;
 	private int height;
 	
-	public Texture2D(){
-	}
-	
-	public Texture2D(Texture2D texture){
-		id = texture.getId();
-		width = texture.getWidth();
-		height = texture.getHeight();
-	}
+	public Texture2D(){}
 	
 	public Texture2D(String file)
 	{

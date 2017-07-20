@@ -24,6 +24,12 @@ import org.lwjgl.glfw.GLFWFramebufferSizeCallback;
 
 import core.math.Vec2f;
 
+/**
+ * 
+ * @author oreon3D
+ * The GLFW Input-Handler
+ *
+ */
 public class Input {
 	
 	private static Input instance = null;
