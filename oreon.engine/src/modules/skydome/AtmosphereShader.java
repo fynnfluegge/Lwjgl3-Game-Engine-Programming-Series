@@ -1,4 +1,4 @@
-package modules;
+package modules.skydome;
 
 import core.scene.GameObject;
 import core.shaders.Shader;
@@ -21,8 +21,8 @@ public class AtmosphereShader extends Shader{
 	{
 		super();
 
-		addVertexShader(ResourceLoader.loadShader("shaders/atmosphere_VS.glsl"));
-		addFragmentShader(ResourceLoader.loadShader("shaders/atmosphere_FS.glsl"));
+		addVertexShader(ResourceLoader.loadShader("shaders/sky/atmosphere_VS.glsl"));
+		addFragmentShader(ResourceLoader.loadShader("shaders/sky/atmosphere_FS.glsl"));
 		compileShader();
 			
 		addUniform("modelViewProjectionMatrix");

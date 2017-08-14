@@ -1,4 +1,4 @@
-package modules;
+package modules.skydome;
 
 import core.buffers.MeshVBO;
 import core.configs.CCW;
