@@ -46,7 +46,9 @@ public class RenderingEngine {
 		window.render();
 	}
 	
-	public void update(){}
+	public void update(){
+		terrain.updateQuadtree();
+	}
 	
 	public void shutdown(){}
 }
