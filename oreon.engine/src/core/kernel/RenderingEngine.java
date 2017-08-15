@@ -30,7 +30,7 @@ public class RenderingEngine {
 	public void init()
 	{
 		window.init();
-		terrain.init("./res/terrain_settings.txt");
+		terrain.init("./res/settings/terrain_settings.txt");
 	}
 
 	public void render()
