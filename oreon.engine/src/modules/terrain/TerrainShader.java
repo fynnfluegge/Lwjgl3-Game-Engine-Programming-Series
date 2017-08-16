@@ -33,9 +33,6 @@ private static TerrainShader instance = null;
 		addUniform("worldMatrix");
 		addUniform("scaleY");
 		
-//		addUniform("tessFactor");
-//		addUniform("tessSlope");
-//		addUniform("tessShift");
 		addUniform("index");
 		addUniform("gap");
 		addUniform("lod");
@@ -63,9 +60,6 @@ private static TerrainShader instance = null;
 		setUniform("worldMatrix", object.getTransform().getWorldMatrix());
 		
 		setUniformf("scaleY", terrConfig.getScaleY());
-//		setUniformi("tessFactor", terrConfig.getTessellationFactor());
-//		setUniformf("tessSlope", terrConfig.getTessellationSlope());
-//		setUniformf("tessShift", terrConfig.getTessellationShift());
 		setUniformi("lod", lod);
 		setUniform("index", index);
 		setUniformf("gap", gap);

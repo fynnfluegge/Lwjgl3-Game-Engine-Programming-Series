@@ -10,13 +10,6 @@ public class TerrainConfig {
 	
 	private float scaleY;
 	private float scaleXZ;
-	private int bezier;
-	private float sightRangeFactor;
-	private float texDetail;
-	private int tessellationFactor;
-	private float tessellationSlope;
-	private float tessellationShift;
-	private int detailRange;
 	
 	private int[] lod_range = new int[8];
 	private int[] lod_morphing_area = new int[8];
@@ -42,15 +35,6 @@ public class TerrainConfig {
 					}
 					if(tokens[0].equals("scaleXZ")){
 						setScaleXZ(Float.valueOf(tokens[1]));
-					}
-					if(tokens[0].equals("tessellationFactor")){
-						setTessellationFactor(Integer.valueOf(tokens[1]));
-					}
-					if(tokens[0].equals("tessellationSlope")){
-						setTessellationSlope(Float.valueOf(tokens[1]));
-					}
-					if(tokens[0].equals("tessellationShift")){
-						setTessellationShift(Float.valueOf(tokens[1]));
 					}
 					if(tokens[0].equals("lod1_range")){
 						setLod1_range( Integer.valueOf(tokens[1]));
@@ -88,7 +72,7 @@ public class TerrainConfig {
 	}
 	
 	private int updateMorphingArea(int lod){
-		return (int) ((6000/TerrainQuadtree.getRootPatches()) / (Math.pow(2, lod)));
+		return (int) ((scaleY/TerrainQuadtree.getRootPatches()) / (Math.pow(2, lod)));
 	}
 	
 	public float getScaleY() {
@@ -103,49 +87,7 @@ public class TerrainConfig {
 	public void setScaleXZ(float scaleXZ) {
 		this.scaleXZ = scaleXZ;
 	}
-	public int getBezier() {
-		return bezier;
-	}
-	public void setBezier(int bezier) {
-		this.bezier = bezier;
-	}
-	public float getSightRangeFactor() {
-		return sightRangeFactor;
-	}
-	public void setSightRangeFactor(float sightRangeFactor) {
-		this.sightRangeFactor = sightRangeFactor;
-	}
-	public float getTexDetail() {
-		return texDetail;
-	}
-	public void setTexDetail(float texDetail) {
-		this.texDetail = texDetail;
-	}
-	public int getTessellationFactor() {
-		return tessellationFactor;
-	}
-	public void setTessellationFactor(int tessellationFactor) {
-		this.tessellationFactor = tessellationFactor;
-	}
-	public float getTessellationSlope() {
-		return tessellationSlope;
-	}
-	public void setTessellationSlope(float tessellationSlope) {
-		this.tessellationSlope = tessellationSlope;
-	}
-	public float getTessellationShift() {
-		return tessellationShift;
-	}
-	public void setTessellationShift(float tessellationShift) {
-		this.tessellationShift = tessellationShift;
-	}
-	public int getDetailRange() {
-		return detailRange;
-	}
-	public void setDetailRange(int detailRange) {
-		this.detailRange = detailRange;
-	}
-
+	
 	public void setLod1_range(int lod1_range) {
 		this.lod_range[0] = lod1_range;
 		lod_morphing_area[0] = lod1_range-updateMorphingArea(1);
