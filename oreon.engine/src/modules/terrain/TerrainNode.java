@@ -30,6 +30,12 @@ public class TerrainNode extends GameObject{
 		this.location = location;
 		this.terrConfig = terrConfig;
 		this.gap = 1f/(TerrainQuadtree.getRootPatches() * (float)(Math.pow(2, lod)));
+		
+		getTransform().setScaling(terrConfig.getScaleXZ(), terrConfig.getScaleY(), terrConfig.getScaleXZ());
+		getTransform().getTranslation().setX(-terrConfig.getScaleXZ()/2f);
+		getTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
+		getTransform().getTranslation().setY(0);
+		
 		PatchVBO meshBuffer = new PatchVBO();
 		meshBuffer.addData(generatePatch(),16);
 
@@ -38,19 +44,8 @@ public class TerrainNode extends GameObject{
 		
 		addComponent(Constants.RENDERER_COMPONENT, renderer);
 		
-		getTransform().setScaling(terrConfig.getScaleXZ(), terrConfig.getScaleY(), terrConfig.getScaleXZ());
-		getTransform().getTranslation().setX(-terrConfig.getScaleXZ()/2f);
-		getTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
-		getTransform().getTranslation().setY(0);
-		
 		computeWorldPos();
 		updateQuadtree();
-	}
-	
-	public void update()
-	{
-			for(Node child: getChildren())
-				child.update();		
 	}
 	
 	public void render()
@@ -59,8 +54,8 @@ public class TerrainNode extends GameObject{
 		{	
 			getComponents().get(Constants.RENDERER_COMPONENT).render();
 		}
-		for(Node child: getChildren())
-			child.render();
+
+		super.render();
 	}
 	
 	public void updateQuadtree(){
@@ -81,63 +76,11 @@ public class TerrainNode extends GameObject{
 		
 		float distance = (Camera.getInstance().getPosition().sub(worldPos)).length();
 		
-		switch (lod){
-		case 0: if (distance < terrConfig.getLod_range()[0]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[0]){
-					removeChildNodes();
-				}
-				break;
-		case 1: if (distance < terrConfig.getLod_range()[1]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[1]){
-					removeChildNodes();
-				}
-				break;
-		case 2: if (distance < terrConfig.getLod_range()[2]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[2]){
-					removeChildNodes();
-				}
-				break;
-		case 3: if (distance < terrConfig.getLod_range()[3]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[3]){
-					removeChildNodes();
-				}
-				break;
-		case 4: if (distance < terrConfig.getLod_range()[4]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[4]){
-					removeChildNodes();
-				}
-				break;
-		case 5: if (distance < terrConfig.getLod_range()[5]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[5]){
-					removeChildNodes();
-				}
-				break;
-		case 6: if (distance < terrConfig.getLod_range()[6]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[6]){
-					removeChildNodes();
-				}
-				break;
-		case 7: if (distance < terrConfig.getLod_range()[7]){
-					add4ChildNodes(lod+1);
-				}
-				else if(distance >= terrConfig.getLod_range()[7]){
-					removeChildNodes();
-				}
-				break;
+		if (distance < terrConfig.getLod_range()[lod]){
+			add4ChildNodes(lod+1);
+		}
+		else if(distance >= terrConfig.getLod_range()[lod]){
+			removeChildNodes();
 		}
 	}
 	
@@ -145,7 +88,7 @@ public class TerrainNode extends GameObject{
 		
 		if (isleaf){
 			isleaf = false;
-			((Renderer) getComponent("Renderer")).getVbo().delete();
+			((Renderer) getComponent(Constants.RENDERER_COMPONENT)).getVbo().delete();
 		}
 		if(getChildren().size() == 0){
 			for (int i=0; i<2; i++){
@@ -166,12 +109,12 @@ public class TerrainNode extends GameObject{
 			Renderer renderer = new Renderer(meshBuffer);
 			renderer.setRenderInfo(new RenderInfo(new Default(), TerrainShader.getInstance()));
 			
-			addComponent("Renderer", renderer);
+			addComponent(Constants.RENDERER_COMPONENT, renderer);
 		}
 		if(getChildren().size() != 0){
 			
 			for(Node child: getChildren()){
-				((Renderer) ((GameObject) child).getComponent("Renderer")).getVbo().delete();
+				((Renderer) ((GameObject) child).getComponent(Constants.RENDERER_COMPONENT)).getVbo().delete();
 			}	
 			getChildren().clear();
 		}

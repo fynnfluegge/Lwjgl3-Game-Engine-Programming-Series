@@ -22,6 +22,8 @@ public class GameObject extends Node{
 		for (String key : components.keySet()) {
 			components.get(key).update();
 		}
+		
+		super.update();
 	}
 	
 	public void input()
@@ -29,6 +31,8 @@ public class GameObject extends Node{
 		for (String key : components.keySet()) {
 			components.get(key).input();
 		}
+		
+		super.input();
 	}
 	
 	public void render()
@@ -36,6 +40,8 @@ public class GameObject extends Node{
 		for (String key : components.keySet()) {
 			components.get(key).render();
 		}
+		
+		super.render();
 	}
 
 	public HashMap<String, Component> getComponents() {
@@ -44,7 +50,8 @@ public class GameObject extends Node{
 	
 	public Component getComponent(String component)
 	{
-		return this.components.get(component);
+		return this.co
+				mponents.get(component);
 	}
 	
 }

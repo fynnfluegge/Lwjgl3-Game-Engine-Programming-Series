@@ -20,7 +20,7 @@ public class Terrain extends Node{
 		if (Camera.getInstance().isCameraMoved()){
 			updateQuadtreeCounter++;
 		}
-		if (updateQuadtreeCounter == 1){
+		if (updateQuadtreeCounter == 10){
 			
 			((TerrainQuadtree) getChildren().get(0)).updateQuadtree();
 			

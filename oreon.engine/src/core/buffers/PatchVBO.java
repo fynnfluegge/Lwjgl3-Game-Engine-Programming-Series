@@ -76,14 +76,6 @@ public class PatchVBO implements VBO{
 			glBindVertexArray(0);
 	}
 	
-	public void update(Vec3f[] vertices)
-	{	
-			glBindVertexArray(vaoId);
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			glBufferData(GL_ARRAY_BUFFER, BufferUtil.createFlippedBuffer(vertices), GL_STATIC_DRAW);
-			glBindVertexArray(0);
-	}
-	
 	public void delete()
 	{	
 			glBindVertexArray(vaoId);
