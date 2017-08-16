@@ -50,8 +50,7 @@ public class GameObject extends Node{
 	
 	public Component getComponent(String component)
 	{
-		return this.co
-				mponents.get(component);
+		return this.components.get(component);
 	}
 	
 }
