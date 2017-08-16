@@ -91,7 +91,7 @@ vec2 morph(int morph_area){
 		fixPointLongitude = location + vec2(gap,0);
 	}
 	
-	float planarFactor;
+	float planarFactor = 0;
 	if (cameraPosition.y > abs(scaleY))
 		planarFactor = 1;
 	else

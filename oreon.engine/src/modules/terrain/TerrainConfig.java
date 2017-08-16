@@ -43,7 +43,13 @@ public class TerrainConfig {
 							tokens = line.split(" ");
 							tokens = Util.removeEmptyStrings(tokens);
 							if (tokens[0].equals("lod" + (i+1) + "_range")){
-								setLodRange(i, Integer.valueOf(tokens[1]));
+								if (Integer.valueOf(tokens[1]) == 0){
+									lod_range[i] = 0;
+									lod_morphing_area[i] = 0;
+								}
+								else {
+									setLodRange(i, Integer.valueOf(tokens[1]));
+								}
 							}
 						}
 					}

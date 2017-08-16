@@ -88,7 +88,6 @@ public class TerrainNode extends GameObject{
 		
 		if (isleaf){
 			isleaf = false;
-			((Renderer) getComponent(Constants.RENDERER_COMPONENT)).getVbo().delete();
 		}
 		if(getChildren().size() == 0){
 			for (int i=0; i<2; i++){
@@ -96,20 +95,13 @@ public class TerrainNode extends GameObject{
 					addChild(new TerrainNode(terrConfig, location.add(new Vec2f(i*gap/2f,j*gap/2f)), lod, new Vec2f(i,j)));
 				}
 			}
-		}	
+		}
 	}
 	
 	private void removeChildNodes(){
 		
 		if (!isleaf){
 			isleaf = true;
-			PatchVBO meshBuffer = new PatchVBO();
-			meshBuffer.addData(generatePatch(),16);
-			
-			Renderer renderer = new Renderer(meshBuffer);
-			renderer.setRenderInfo(new RenderInfo(new Default(), TerrainShader.getInstance()));
-			
-			addComponent(Constants.RENDERER_COMPONENT, renderer);
 		}
 		if(getChildren().size() != 0){
 			

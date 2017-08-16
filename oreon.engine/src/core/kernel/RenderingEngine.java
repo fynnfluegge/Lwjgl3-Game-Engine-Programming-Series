@@ -40,6 +40,8 @@ public class RenderingEngine {
 		Default.clearScreen();
 		
 		skydome.render();
+		
+		terrain.updateQuadtree();
 		terrain.render();
 		
 		// draw into OpenGL window
@@ -47,7 +49,6 @@ public class RenderingEngine {
 	}
 	
 	public void update(){
-		terrain.updateQuadtree();
 	}
 	
 	public void shutdown(){}

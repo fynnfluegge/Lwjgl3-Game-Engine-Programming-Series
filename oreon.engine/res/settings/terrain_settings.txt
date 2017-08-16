@@ -1,6 +1,6 @@
 #terrain settings
 scaleXZ 6000.0
-scaleY 1200.0
+scaleY 0.0
 
 #lod_ranges
 lod1_range 1750
