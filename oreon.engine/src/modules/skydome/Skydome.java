@@ -13,7 +13,7 @@ public class Skydome extends GameObject{
 	
 	public Skydome()
 	{
-		getTransform().setScaling(Constants.ZFAR*0.5f, Constants.ZFAR*0.5f, Constants.ZFAR*0.5f);
+		getWorldTransform().setScaling(Constants.ZFAR*0.5f, Constants.ZFAR*0.5f, Constants.ZFAR*0.5f);
 		Mesh mesh = new OBJLoader().load("./res/models/dome", "dome.obj", null)[0].getMesh();
 		MeshVBO meshBuffer = new MeshVBO();
 		meshBuffer.addData(mesh);

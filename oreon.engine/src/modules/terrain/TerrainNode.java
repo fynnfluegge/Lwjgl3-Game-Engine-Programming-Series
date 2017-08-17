@@ -20,26 +20,31 @@ public class TerrainNode extends GameObject{
 	private Vec3f worldPos;
 	private Vec2f index;
 	private float gap;
+	private PatchVBO buffer;
 	
 	
-	public TerrainNode(TerrainConfig terrConfig, Vec2f location, int lod, Vec2f index){
+	public TerrainNode(PatchVBO patchVBO, TerrainConfig terrConfig, Vec2f location, int lod, Vec2f index){
 		
+		this.buffer = patchVBO;
 		this.isleaf = true;
 		this.index = index;
 		this.lod = lod;
 		this.location = location;
 		this.terrConfig = terrConfig;
 		this.gap = 1f/(TerrainQuadtree.getRootPatches() * (float)(Math.pow(2, lod)));
-		
-		getTransform().setScaling(terrConfig.getScaleXZ(), terrConfig.getScaleY(), terrConfig.getScaleXZ());
-		getTransform().getTranslation().setX(-terrConfig.getScaleXZ()/2f);
-		getTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
-		getTransform().getTranslation().setY(0);
-		
-		PatchVBO meshBuffer = new PatchVBO();
-		meshBuffer.addData(generatePatch(),16);
 
-		Renderer renderer = new Renderer(meshBuffer);
+		Vec3f localScaling = new Vec3f(gap,0,gap);
+		Vec3f localTranslation = new Vec3f(location.getX(),0,location.getY());
+		
+		getLocalTransform().setScaling(localScaling);
+		getLocalTransform().setTranslation(localTranslation);
+		
+		getWorldTransform().setScaling(terrConfig.getScaleXZ(), terrConfig.getScaleY(), terrConfig.getScaleXZ());
+		getWorldTransform().getTranslation().setX(-terrConfig.getScaleXZ()/2f);
+		getWorldTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
+		getWorldTransform().getTranslation().setY(0);
+		
+		Renderer renderer = new Renderer(buffer);
 		renderer.setRenderInfo(new RenderInfo(new Default(),TerrainShader.getInstance()));
 		
 		addComponent(Constants.RENDERER_COMPONENT, renderer);
@@ -92,7 +97,7 @@ public class TerrainNode extends GameObject{
 		if(getChildren().size() == 0){
 			for (int i=0; i<2; i++){
 				for (int j=0; j<2; j++){
-					addChild(new TerrainNode(terrConfig, location.add(new Vec2f(i*gap/2f,j*gap/2f)), lod, new Vec2f(i,j)));
+					addChild(new TerrainNode(buffer, terrConfig, location.add(new Vec2f(i*gap/2f,j*gap/2f)), lod, new Vec2f(i,j)));
 				}
 			}
 		}
@@ -103,11 +108,7 @@ public class TerrainNode extends GameObject{
 		if (!isleaf){
 			isleaf = true;
 		}
-		if(getChildren().size() != 0){
-			
-			for(Node child: getChildren()){
-				((Renderer) ((GameObject) child).getComponent(Constants.RENDERER_COMPONENT)).getVbo().delete();
-			}	
+		if(getChildren().size() != 0){			
 			getChildren().clear();
 		}
 }

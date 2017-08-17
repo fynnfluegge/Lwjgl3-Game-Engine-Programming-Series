@@ -9,11 +9,13 @@ public class Node {
 
 	private Node parent;
 	private List<Node> children;
-	private Transform transform;
+	private Transform worldTransform;
+	private Transform localTransform;
 	
 	public Node(){
 		
-		setTransform(new Transform());
+		setWorldTransform(new Transform());
+		setLocalTransform(new Transform());
 		setChildren(new ArrayList<Node>());
 	}
 	
@@ -63,11 +65,19 @@ public class Node {
 		this.children = children;
 	}
 
-	public Transform getTransform() {
-		return transform;
+	public Transform getWorldTransform() {
+		return worldTransform;
 	}
 
-	public void setTransform(Transform transform) {
-		this.transform = transform;
+	public void setWorldTransform(Transform worldTransform) {
+		this.worldTransform = worldTransform;
+	}
+
+	public Transform getLocalTransform() {
+		return localTransform;
+	}
+
+	public void setLocalTransform(Transform localTransform) {
+		this.localTransform = localTransform;
 	}
 }

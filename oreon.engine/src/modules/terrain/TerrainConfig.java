@@ -1,7 +1,6 @@
 package modules.terrain;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 
 import core.utils.Util;
@@ -19,43 +18,41 @@ public class TerrainConfig {
 		BufferedReader reader = null;
 		
 		try{
-			if(new File(file).exists()){
-				reader = new BufferedReader(new FileReader(file));
-				String line;
+			reader = new BufferedReader(new FileReader(file));
+			String line;
+			
+			while((line = reader.readLine()) != null){
 				
-				while((line = reader.readLine()) != null){
-					
-					String[] tokens = line.split(" ");
-					tokens = Util.removeEmptyStrings(tokens);
-					
-					if(tokens.length == 0)
-						continue;
-					
-					if(tokens[0].equals("scaleY")){
-						setScaleY(Float.valueOf(tokens[1]));
-					}
-					if(tokens[0].equals("scaleXZ")){
-						setScaleXZ(Float.valueOf(tokens[1]));
-					}
-					if (tokens[0].equals("#lod_ranges")){					
-						for (int i = 0; i < 8; i++){
-							line = reader.readLine();
-							tokens = line.split(" ");
-							tokens = Util.removeEmptyStrings(tokens);
-							if (tokens[0].equals("lod" + (i+1) + "_range")){
-								if (Integer.valueOf(tokens[1]) == 0){
-									lod_range[i] = 0;
-									lod_morphing_area[i] = 0;
-								}
-								else {
-									setLodRange(i, Integer.valueOf(tokens[1]));
-								}
+				String[] tokens = line.split(" ");
+				tokens = Util.removeEmptyStrings(tokens);
+				
+				if(tokens.length == 0)
+					continue;
+				
+				if(tokens[0].equals("scaleY")){
+					setScaleY(Float.valueOf(tokens[1]));
+				}
+				if(tokens[0].equals("scaleXZ")){
+					setScaleXZ(Float.valueOf(tokens[1]));
+				}
+				if (tokens[0].equals("#lod_ranges")){					
+					for (int i = 0; i < 8; i++){
+						line = reader.readLine();
+						tokens = line.split(" ");
+						tokens = Util.removeEmptyStrings(tokens);
+						if (tokens[0].equals("lod" + (i+1) + "_range")){
+							if (Integer.valueOf(tokens[1]) == 0){
+								lod_range[i] = 0;
+								lod_morphing_area[i] = 0;
+							}
+							else {
+								setLodRange(i, Integer.valueOf(tokens[1]));
 							}
 						}
 					}
 				}
-				reader.close();
 			}
+			reader.close();
 		}
 		catch(Exception e)
 		{
@@ -65,7 +62,7 @@ public class TerrainConfig {
 	}
 	
 	private int updateMorphingArea(int lod){
-		return (int) ((scaleY/TerrainQuadtree.getRootPatches()) / (Math.pow(2, lod)));
+		return (int) ((scaleXZ/TerrainQuadtree.getRootPatches()) / (Math.pow(2, lod)));
 	}
 	
 	public float getScaleY() {

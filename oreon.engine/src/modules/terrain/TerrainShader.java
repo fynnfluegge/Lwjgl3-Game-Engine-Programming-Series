@@ -29,7 +29,8 @@ private static TerrainShader instance = null;
 		addGeometryShader(ResourceLoader.loadShader("shaders/terrain/Terrain_GS.glsl"));
 		addFragmentShader(ResourceLoader.loadShader("shaders/terrain/Terrain_FS.glsl"));
 		compileShader();
-		
+	
+		addUniform("localMatrix");
 		addUniform("worldMatrix");
 		addUniform("scaleY");
 		
@@ -57,7 +58,8 @@ private static TerrainShader instance = null;
 		float gap = ((TerrainNode) object).getGap();
 		Vec2f location = ((TerrainNode) object).getLocation();
 		
-		setUniform("worldMatrix", object.getTransform().getWorldMatrix());
+		setUniform("localMatrix", object.getLocalTransform().getWorldMatrix());
+		setUniform("worldMatrix", object.getWorldTransform().getWorldMatrix());
 		
 		setUniformf("scaleY", terrConfig.getScaleY());
 		setUniformi("lod", lod);

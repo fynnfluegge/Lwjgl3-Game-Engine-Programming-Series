@@ -31,7 +31,7 @@ public class AtmosphereShader extends Shader{
 		
 	public void updateUniforms(GameObject object)
 	{
-		setUniform("modelViewProjectionMatrix", object.getTransform().getModelViewProjectionMatrix());
-		setUniform("worldMatrix", object.getTransform().getWorldMatrix());
+		setUniform("modelViewProjectionMatrix", object.getWorldTransform().getModelViewProjectionMatrix());
+		setUniform("worldMatrix", object.getWorldTransform().getWorldMatrix());
 	}
 }
