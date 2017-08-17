@@ -42,6 +42,7 @@ public class RenderingEngine {
 		skydome.render();
 		
 		terrain.updateQuadtree();
+		
 		terrain.render();
 		
 		// draw into OpenGL window

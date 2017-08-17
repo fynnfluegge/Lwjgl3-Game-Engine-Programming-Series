@@ -122,36 +122,6 @@ public class TerrainNode extends GameObject{
 		
 		this.worldPos = new Vec3f(loc.getX(),height,loc.getY());
 	}
-	
-	public Vec2f[] generatePatch(){
-		
-		// 16 vertices for each patch
-		Vec2f[] vertices = new Vec2f[16];
-		
-		int index = 0;
-		
-		vertices[index++] = new Vec2f(location.getX(),location.getY());
-		vertices[index++] = new Vec2f(location.getX()+gap*0.333f,location.getY());
-		vertices[index++] = new Vec2f(location.getX()+gap*0.666f,location.getY());
-		vertices[index++] = new Vec2f(location.getX()+gap,location.getY());
-		
-		vertices[index++] = new Vec2f(location.getX(),location.getY()+gap*0.333f);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.333f,location.getY()+gap*0.333f);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.666f,location.getY()+gap*0.333f);
-		vertices[index++] = new Vec2f(location.getX()+gap,location.getY()+gap*0.333f);
-		
-		vertices[index++] = new Vec2f(location.getX(),location.getY()+gap*0.666f);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.333f,location.getY()+gap*0.666f);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.666f,location.getY()+gap*0.666f);
-		vertices[index++] = new Vec2f(location.getX()+gap,location.getY()+gap*0.666f);
-	
-		vertices[index++] = new Vec2f(location.getX(),location.getY()+gap);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.333f,location.getY()+gap);
-		vertices[index++] = new Vec2f(location.getX()+gap*0.666f,location.getY()+gap);
-		vertices[index++] = new Vec2f(location.getX()+gap,location.getY()+gap);
-		
-		return vertices;
-	}
 
 	public Vec3f getWorldPos() {
 		return worldPos;
