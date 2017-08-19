@@ -10,11 +10,6 @@ public class Renderer extends Component{
 	
 	public Renderer(){}
 	
-	public Renderer(VBO vao)
-	{
-		this.vbo = vao;
-	}
-	
 	public void render(){
 		renderInfo.getConfig().enable();
 		renderInfo.getShader().bind();			

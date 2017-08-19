@@ -14,7 +14,7 @@ import core.utils.Constants;
 public class TerrainNode extends GameObject{
 
 	private boolean isleaf;
-	private TerrainConfig terrConfig;
+	private TerrainConfig config;
 	private int lod;
 	private Vec2f location;
 	private Vec3f worldPos;
@@ -30,8 +30,8 @@ public class TerrainNode extends GameObject{
 		this.index = index;
 		this.lod = lod;
 		this.location = location;
-		this.terrConfig = terrConfig;
-		this.gap = 1f/(TerrainQuadtree.getRootPatches() * (float)(Math.pow(2, lod)));
+		this.config = terrConfig;
+		this.gap = 1f/(TerrainQuadtree.getRootNodes() * (float)(Math.pow(2, lod)));
 
 		Vec3f localScaling = new Vec3f(gap,0,gap);
 		Vec3f localTranslation = new Vec3f(location.getX(),0,location.getY());
@@ -44,7 +44,8 @@ public class TerrainNode extends GameObject{
 		getWorldTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
 		getWorldTransform().getTranslation().setY(0);
 		
-		Renderer renderer = new Renderer(buffer);
+		Renderer renderer = new Renderer();
+		renderer.setVbo(buffer);
 		renderer.setRenderInfo(new RenderInfo(new Default(),TerrainShader.getInstance()));
 		
 		addComponent(Constants.RENDERER_COMPONENT, renderer);
@@ -59,14 +60,16 @@ public class TerrainNode extends GameObject{
 		{	
 			getComponents().get(Constants.RENDERER_COMPONENT).render();
 		}
-
-		super.render();
+		
+		for (Node node : getChildren()){
+			node.render();
+		}
 	}
 	
 	public void updateQuadtree(){
 		
-		if (Camera.getInstance().getPosition().getY() > (terrConfig.getScaleY())){
-			worldPos.setY(terrConfig.getScaleY());
+		if (Camera.getInstance().getPosition().getY() > (config.getScaleY())){
+			worldPos.setY(config.getScaleY());
 		}
 		else worldPos.setY(Camera.getInstance().getPosition().getY());
 
@@ -81,10 +84,10 @@ public class TerrainNode extends GameObject{
 		
 		float distance = (Camera.getInstance().getPosition().sub(worldPos)).length();
 		
-		if (distance < terrConfig.getLod_range()[lod]){
+		if (distance < config.getLod_range()[lod]){
 			add4ChildNodes(lod+1);
 		}
-		else if(distance >= terrConfig.getLod_range()[lod]){
+		else if(distance >= config.getLod_range()[lod]){
 			removeChildNodes();
 		}
 	}
@@ -97,7 +100,7 @@ public class TerrainNode extends GameObject{
 		if(getChildren().size() == 0){
 			for (int i=0; i<2; i++){
 				for (int j=0; j<2; j++){
-					addChild(new TerrainNode(buffer, terrConfig, location.add(new Vec2f(i*gap/2f,j*gap/2f)), lod, new Vec2f(i,j)));
+					addChild(new TerrainNode(buffer, config, location.add(new Vec2f(i*gap/2f,j*gap/2f)), lod, new Vec2f(i,j)));
 				}
 			}
 		}
@@ -115,12 +118,9 @@ public class TerrainNode extends GameObject{
 	
 	public void computeWorldPos(){
 		
-		Vec2f loc = location.add(gap/2f).mul(terrConfig.getScaleXZ()).sub(terrConfig.getScaleXZ()/2f);
+		Vec2f loc = location.add(gap/2f).mul(config.getScaleXZ()).sub(config.getScaleXZ()/2f);
 		
-		// TODO
-		float height = 0;
-		
-		this.worldPos = new Vec3f(loc.getX(),height,loc.getY());
+		this.worldPos = new Vec3f(loc.getX(),0,loc.getY());
 	}
 
 	public Vec3f getWorldPos() {
@@ -139,12 +139,12 @@ public class TerrainNode extends GameObject{
 		this.location = location;
 	}
 
-	public TerrainConfig getTerrConfig() {
-		return terrConfig;
+	public TerrainConfig getConfig() {
+		return config;
 	}
 
-	public void setTerrConfig(TerrainConfig terrConfig) {
-		this.terrConfig = terrConfig;
+	public void setConfig(TerrainConfig terrConfig) {
+		this.config = terrConfig;
 	}
 	
 	public int getLod() {

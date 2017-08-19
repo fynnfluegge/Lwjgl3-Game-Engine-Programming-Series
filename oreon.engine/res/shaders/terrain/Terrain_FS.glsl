@@ -1,6 +1,8 @@
 #version 330
 
+layout(location = 0) out vec4 outputColor;
+
 void main()
 {
-	gl_FragColor = vec4(0.01,1,0.01,1.0);
+	outputColor = vec4(0.01,1,0.01,1.0);
 }

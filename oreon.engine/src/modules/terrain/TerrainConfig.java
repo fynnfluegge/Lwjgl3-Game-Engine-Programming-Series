@@ -62,7 +62,7 @@ public class TerrainConfig {
 	}
 	
 	private int updateMorphingArea(int lod){
-		return (int) ((scaleXZ/TerrainQuadtree.getRootPatches()) / (Math.pow(2, lod)));
+		return (int) ((scaleXZ/TerrainQuadtree.getRootNodes()) / (Math.pow(2, lod)));
 	}
 	
 	public float getScaleY() {

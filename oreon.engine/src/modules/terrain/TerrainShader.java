@@ -33,7 +33,7 @@ private static TerrainShader instance = null;
 		addUniform("localMatrix");
 		addUniform("worldMatrix");
 		addUniform("scaleY");
-		
+//		
 		addUniform("index");
 		addUniform("gap");
 		addUniform("lod");
@@ -52,7 +52,7 @@ private static TerrainShader instance = null;
 		setUniform("cameraPosition", Camera.getInstance().getPosition());
 		setUniform("m_ViewProjection", Camera.getInstance().getViewProjectionMatrix());
 		
-		TerrainConfig terrConfig = ((TerrainNode) object).getTerrConfig();
+		TerrainConfig terrConfig = ((TerrainNode) object).getConfig();
 		int lod = ((TerrainNode) object).getLod();
 		Vec2f index = ((TerrainNode) object).getIndex();
 		float gap = ((TerrainNode) object).getGap();

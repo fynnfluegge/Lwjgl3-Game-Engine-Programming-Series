@@ -37,7 +37,7 @@ public class MeshVBO implements VBO{
 		size = 0;
 	}
 	
-	public void addData(Mesh mesh)
+	public void allocate(Mesh mesh)
 	{
 			size = mesh.getIndices().length;
 			

@@ -19,7 +19,6 @@ import static org.lwjgl.opengl.GL40.GL_PATCH_VERTICES;
 import static org.lwjgl.opengl.GL40.glPatchParameteri;
 
 import core.math.Vec2f;
-import core.math.Vec3f;
 import core.utils.BufferUtil;
 
 public class PatchVBO implements VBO{
@@ -35,22 +34,7 @@ public class PatchVBO implements VBO{
 		size = 0;
 	}
 	
-	public void addData(Vec3f[] vertices, int patchsize)
-	{
-			size = vertices.length;
-			
-			glBindVertexArray(vaoId);
-			
-			glBindBuffer(GL_ARRAY_BUFFER, vbo);
-			glBufferData(GL_ARRAY_BUFFER, BufferUtil.createFlippedBuffer(vertices), GL_STATIC_DRAW);
-			
-			glVertexAttribPointer(0, 3, GL_FLOAT, false, Float.BYTES*3, 0);
-			glPatchParameteri(GL_PATCH_VERTICES, patchsize);
-			
-			glBindVertexArray(0);
-	}
-	
-	public void addData(Vec2f[] vertices, int patchsize)
+	public void allocate(Vec2f[] vertices, int patchsize)
 	{
 			size = vertices.length;
 			

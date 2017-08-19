@@ -6,16 +6,16 @@ import core.scene.Node;
 
 public class TerrainQuadtree extends Node{
 
-	private static int rootPatches = 8;
+	private static int rootNodes = 8;
 	
 	public TerrainQuadtree(TerrainConfig terrConfig){
 		
 		PatchVBO buffer = new PatchVBO();
-		buffer.addData(generatePatch(),16);
+		buffer.allocate(generatePatch(),16);
 		
-		for (int i=0; i<rootPatches; i++){
-			for (int j=0; j<rootPatches; j++){
-				addChild(new TerrainNode(buffer, terrConfig, new Vec2f(1f * i/(float)rootPatches,1f * j/(float)rootPatches), 0, new Vec2f(i,j)));
+		for (int i=0; i<rootNodes; i++){
+			for (int j=0; j<rootNodes; j++){
+				addChild(new TerrainNode(buffer, terrConfig, new Vec2f(i/(float)rootNodes,j/(float)rootNodes), 0, new Vec2f(i,j)));
 			}
 		}
 		
@@ -61,7 +61,7 @@ public class TerrainQuadtree extends Node{
 		return vertices;
 	}
 
-	public static int getRootPatches() {
-		return rootPatches;
+	public static int getRootNodes() {
+		return rootNodes;
 	}
 }
