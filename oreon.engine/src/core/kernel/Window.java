@@ -58,7 +58,7 @@ public class Window {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);	
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);	
 		
-		window = glfwCreateWindow(width, height, "OREON ENGINE", 0, 0);
+		window = glfwCreateWindow(width, height, "OREON ENGINE Programming Tutorial Series", 0, 0);
 		
 		if(window == 0) {
 		    throw new RuntimeException("Failed to create window");

@@ -1,0 +1,13 @@
+#terrain settings
+scaleXZ 6000.0
+scaleY 0.0
+
+#lod_ranges
+lod1_range 1750
+lod2_range 874
+lod3_range 386
+lod4_range 192
+lod5_range 100
+lod6_range 50
+lod7_range 0
+lod8_range 0
