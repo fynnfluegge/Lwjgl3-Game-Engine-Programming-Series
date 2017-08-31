@@ -43,10 +43,6 @@ public class Transform {
 	public void setTranslation(Vec3f translation) {
 		this.translation = translation;
 	}
-	
-	public void setTranslation(float x, float y, float z) {
-		this.translation = new Vec3f(x, y, z);
-	}
 
 	public Vec3f getRotation() {
 		return rotation;
@@ -54,10 +50,6 @@ public class Transform {
 
 	public void setRotation(Vec3f rotation) {
 		this.rotation = rotation;
-	}
-	
-	public void setRotation(float x, float y, float z) {
-		this.rotation = new Vec3f(x,y,z);
 	}
 
 	public Vec3f getScaling() {
@@ -70,5 +62,13 @@ public class Transform {
 	
 	public void setScaling(float x, float y, float z) {
 		this.scaling = new Vec3f(x, y, z);
+	}
+	
+	public void setTranslation(float x, float y, float z) {
+		this.translation = new Vec3f(x, y, z);
+	}
+	
+	public void setRotation(float x, float y, float z) {
+		this.rotation = new Vec3f(x,y,z);
 	}
 }

@@ -18,11 +18,6 @@ public class TerrainQuadtree extends Node{
 				addChild(new TerrainNode(buffer, terrConfig, new Vec2f(i/(float)rootNodes,j/(float)rootNodes), 0, new Vec2f(i,j)));
 			}
 		}
-		
-		getWorldTransform().setScaling(terrConfig.getScaleXZ(), terrConfig.getScaleY(), terrConfig.getScaleXZ());
-		getWorldTransform().getTranslation().setX(-terrConfig.getScaleXZ()/2f);
-		getWorldTransform().getTranslation().setZ(-terrConfig.getScaleXZ()/2f);
-		getWorldTransform().getTranslation().setY(0);
 	}	
 	
 	public void updateQuadtree(){
