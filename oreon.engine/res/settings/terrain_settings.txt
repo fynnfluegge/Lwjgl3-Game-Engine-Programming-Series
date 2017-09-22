@@ -2,6 +2,10 @@
 scaleXZ 6000.0
 scaleY 0.0
 
+tessellationFactor 600
+tessellationSlope 1.8
+tessellationShift 0.1
+
 #lod_ranges
 lod1_range 1750
 lod2_range 874

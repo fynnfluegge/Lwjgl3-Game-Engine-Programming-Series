@@ -41,6 +41,10 @@ public class TerrainShader extends Shader{
 		addUniform("location");
 		addUniform("cameraPosition");
 		
+		addUniform("tessellationFactor");
+		addUniform("tessellationSlope");
+		addUniform("tessellationShift");
+		
 		for (int i=0; i<8; i++){
 			addUniform("lod_morph_area[" + i + "]");
 		}
@@ -59,6 +63,10 @@ public class TerrainShader extends Shader{
 		for (int i = 0; i<8; i++){
 			setUniformi("lod_morph_area[" + i + "]", terrainNode.getConfig().getLod_morphing_area()[i]);
 		}
+		
+		setUniformi("tessellationFactor", terrainNode.getConfig().getTessellationFactor());
+		setUniformf("tessellationSlope", terrainNode.getConfig().getTessellationSlope());
+		setUniformf("tessellationShift", terrainNode.getConfig().getTessellationShift());
 		
 		setUniform("cameraPosition", Camera.getInstance().getPosition());
 		setUniform("m_ViewProjection", Camera.getInstance().getViewProjectionMatrix());
