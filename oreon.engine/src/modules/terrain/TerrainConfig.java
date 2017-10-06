@@ -3,12 +3,17 @@ package modules.terrain;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import core.texturing.Texture2D;
 import core.utils.Util;
+import modules.gpgpu.NormalMapRenderer;
 
 public class TerrainConfig {
 	
 	private float scaleY;
 	private float scaleXZ;
+	
+	private Texture2D heightmap;
+	private Texture2D normalmap;
 	
 	private int tessellationFactor;
 	private float tessellationSlope;
@@ -39,6 +44,16 @@ public class TerrainConfig {
 				if(tokens[0].equals("scaleXZ")){
 					setScaleXZ(Float.valueOf(tokens[1]));
 				}
+				if(tokens[0].equals("heightmap")){
+					setHeightmap(new Texture2D(tokens[1]));
+					getHeightmap().bind();
+					getHeightmap().bilinearFilter();
+					
+					NormalMapRenderer normalRenderer = new NormalMapRenderer(getHeightmap().getWidth());
+					normalRenderer.setStrength(4);
+					normalRenderer.render(getHeightmap());
+					setNormalmap(normalRenderer.getNormalmap());
+				}
 				if (tokens[0].equals("tessellationFactor")){
 					setTessellationFactor(Integer.valueOf(tokens[1]));
 				}
@@ -48,7 +63,7 @@ public class TerrainConfig {
 				if (tokens[0].equals("tessellationShift")){
 					setTessellationShift(Float.valueOf(tokens[1]));
 				}
-				if (tokens[0].equals("#lod_ranges")){					
+				if (tokens[0].equals("#lod_ranges")){		 			
 					for (int i = 0; i < 8; i++){
 						line = reader.readLine();
 						tokens = line.split(" ");
@@ -126,6 +141,22 @@ public class TerrainConfig {
 
 	public void setTessellationShift(float tessellationShift) {
 		this.tessellationShift = tessellationShift;
+	}
+
+	public Texture2D getHeightmap() {
+		return heightmap;
+	}
+
+	public void setHeightmap(Texture2D heightmap) {
+		this.heightmap = heightmap;
+	}
+
+	public Texture2D getNormalmap() {
+		return normalmap;
+	}
+
+	public void setNormalmap(Texture2D normalmap) {
+		this.normalmap = normalmap;
 	}
 
 }

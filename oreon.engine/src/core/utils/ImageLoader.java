@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.lwjgl.BufferUtils;
+
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
@@ -24,7 +25,7 @@ import static org.lwjgl.opengl.GL11.glBindTexture;
 
 public class ImageLoader {
 
-public static int loadImage(String file) {
+public static int[] loadImage(String file) {
 		
 		ByteBuffer imageBuffer;
         try {
@@ -33,15 +34,15 @@ public static int loadImage(String file) {
             throw new RuntimeException(e);
         }
         
-        IntBuffer w    = BufferUtils.createIntBuffer(1);
-        IntBuffer h    = BufferUtils.createIntBuffer(1);
+        IntBuffer w = BufferUtils.createIntBuffer(1);
+        IntBuffer h = BufferUtils.createIntBuffer(1);
         IntBuffer c = BufferUtils.createIntBuffer(1);
 
         // Use info to read image metadata without decoding the entire image.
         if (!stbi_info_from_memory(imageBuffer, w, h, c)) {
             throw new RuntimeException("Failed to read image information: " + stbi_failure_reason());
         }
-  
+        
         // Decode the image
         ByteBuffer image = stbi_load_from_memory(imageBuffer, w, h, c, 0);
         if (image == null) {
@@ -67,7 +68,9 @@ public static int loadImage(String file) {
         
         stbi_image_free(image);
         
-		return texId;
+        int[] data = {texId, w.get(), h.get()};
+        
+		return data;
 	}
 	
 	public static ByteBuffer loadImageToByteBuffer(String file){
