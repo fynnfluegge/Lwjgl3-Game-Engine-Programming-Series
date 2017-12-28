@@ -50,7 +50,7 @@ public class TerrainConfig {
 					getHeightmap().bilinearFilter();
 					
 					NormalMapRenderer normalRenderer = new NormalMapRenderer(getHeightmap().getWidth());
-					normalRenderer.setStrength(8);
+					normalRenderer.setStrength(12);
 					normalRenderer.render(getHeightmap());
 					setNormalmap(normalRenderer.getNormalmap());
 				}
