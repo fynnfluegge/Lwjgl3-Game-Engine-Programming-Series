@@ -2,7 +2,10 @@ package modules.terrain;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
+import core.model.Material;
 import core.texturing.Texture2D;
 import core.utils.Util;
 import modules.gpgpu.NormalMapRenderer;
@@ -18,9 +21,12 @@ public class TerrainConfig {
 	private int tessellationFactor;
 	private float tessellationSlope;
 	private float tessellationShift;
+	private int tbn_Range;
 	
 	private int[] lod_range = new int[8];
 	private int[] lod_morphing_area = new int[8];
+	
+	private List<Material> materials = new ArrayList<>();
 	
 	public void loadFile(String file)
 	{
@@ -79,7 +85,38 @@ public class TerrainConfig {
 						}
 					}
 				}
+				if(tokens[0].equals("material")){
+					getMaterials().add(new Material());
+				}
+				if(tokens[0].equals("material_DIF")){
+					Texture2D diffusemap = new Texture2D(tokens[1]);
+					diffusemap.bind();
+					diffusemap.trilinearFilter();
+					getMaterials().get(materials.size()-1).setDiffusemap(diffusemap);
+				}
+				if(tokens[0].equals("material_NRM")){
+					Texture2D normalmap = new Texture2D(tokens[1]);
+					normalmap.bind();
+					normalmap.trilinearFilter();
+					getMaterials().get(materials.size()-1).setNormalmap(normalmap);
+				}
+				if(tokens[0].equals("material_DISP")){
+					Texture2D heightmap = new Texture2D(tokens[1]);
+					heightmap.bind();
+					heightmap.trilinearFilter();
+					getMaterials().get(materials.size()-1).setDisplacemap(heightmap);
+				}
+				if(tokens[0].equals("material_heightScaling")){
+					getMaterials().get(materials.size()-1).setDisplaceScale(Float.valueOf(tokens[1]));
+				}
+				if(tokens[0].equals("material_horizontalScaling")){
+					getMaterials().get(materials.size()-1).setHorizontalScale(Float.valueOf(tokens[1]));
+				}
+				if(tokens[0].equals("tbn_Range")){
+					setTbn_Range(Integer.valueOf(tokens[1]));
+				}
 			}
+			
 			reader.close();
 		}
 		catch(Exception e)
@@ -157,6 +194,22 @@ public class TerrainConfig {
 
 	public void setNormalmap(Texture2D normalmap) {
 		this.normalmap = normalmap;
+	}
+
+	public List<Material> getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(List<Material> materials) {
+		this.materials = materials;
+	}
+
+	public int getTbn_Range() {
+		return tbn_Range;
+	}
+
+	public void setTbn_Range(int tbn_Range) {
+		this.tbn_Range = tbn_Range;
 	}
 
 }

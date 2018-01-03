@@ -55,6 +55,16 @@ public class TerrainShader extends Shader{
 		for (int i=0; i<8; i++){
 			addUniform("lod_morph_area[" + i + "]");
 		}
+		
+		addUniform("tbn_range");
+		
+		for (int i=0; i<2; i++){
+			addUniform("materials[" + i + "].diffusemap");
+			addUniform("materials[" + i + "].normalmap");
+			addUniform("materials[" + i + "].heightmap");
+			addUniform("materials[" + i + "].heightScaling");
+			addUniform("materials[" + i + "].horizontalScaling");
+		}
 	}
 	
 	public void updateUniforms(GameObject object) {
@@ -87,5 +97,29 @@ public class TerrainShader extends Shader{
 		setUniform("m_ViewProjection", Camera.getInstance().getViewProjectionMatrix());
 		setUniform("localMatrix", object.getLocalTransform().getWorldMatrix());
 		setUniform("worldMatrix", object.getWorldTransform().getWorldMatrix());
+		
+		setUniformi("tbn_range", terrainNode.getConfig().getTbn_Range());
+		
+		int texUnit = 2;
+		for (int i=0; i<2; i++){
+			
+			glActiveTexture(GL_TEXTURE0 + texUnit);
+			terrainNode.getConfig().getMaterials().get(i).getDiffusemap().bind();
+			setUniformi("materials[" + i + "].diffusemap", texUnit);
+			texUnit++;
+			
+			glActiveTexture(GL_TEXTURE0 + texUnit);
+			terrainNode.getConfig().getMaterials().get(i).getDisplacemap().bind();
+			setUniformi("materials[" + i + "].heightmap", texUnit);
+			texUnit++;
+			
+			glActiveTexture(GL_TEXTURE0 + texUnit);
+			terrainNode.getConfig().getMaterials().get(i).getNormalmap().bind();
+			setUniformi("materials[" + i + "].normalmap", texUnit);
+			texUnit++;
+			
+			setUniformf("materials[" + i + "].heightScaling", terrainNode.getConfig().getMaterials().get(i).getDisplaceScale());
+			setUniformf("materials[" + i + "].horizontalScaling", terrainNode.getConfig().getMaterials().get(i).getHorizontalScale()); 
+		}
 	}
 }

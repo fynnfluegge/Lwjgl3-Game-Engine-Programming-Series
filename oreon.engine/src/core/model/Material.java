@@ -17,6 +17,7 @@ public class Material{
 	private float displaceScale;
 	private float emission;
 	private float shininess;
+	private float horizontalScale;
 	
 	public Texture2D getDiffusemap() {
 		return diffusemap;
@@ -89,6 +90,12 @@ public class Material{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public float getHorizontalScale() {
+		return horizontalScale;
+	}
+	public void setHorizontalScale(float horizontalScale) {
+		this.horizontalScale = horizontalScale;
 	}
 	
 	
