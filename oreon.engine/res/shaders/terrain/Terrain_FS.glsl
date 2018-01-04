@@ -25,7 +25,7 @@ const float intensity = 1.2;
 
 float diffuse(vec3 direction, vec3 normal, float intensity)
 {
-	return max(0.01, dot(normal, -direction) * intensity);
+	return max(0.08, dot(normal, -direction) * intensity);
 }
 
 void main()

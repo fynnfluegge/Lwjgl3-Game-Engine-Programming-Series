@@ -29,8 +29,8 @@ material_heightScaling 0.4
 material_horizontalScaling 400.0
 
 material
-material_DIF res/textures/terrain/Ground_21_DIF.jpg
-material_NRM res/textures/terrain/Ground_21_NRM.jpg
-material_DISP res/textures/terrain/Ground_21_DISP.jpg
-material_heightScaling 1.6
+material_DIF res/textures/terrain/Ground_17_DIF.jpg
+material_NRM res/textures/terrain/Ground_17_NRM.jpg
+material_DISP res/textures/terrain/Ground_17_DISP.jpg
+material_heightScaling 1.2
 material_horizontalScaling 200.0
