@@ -25,7 +25,7 @@ const float intensity = 1.2;
 
 float diffuse(vec3 direction, vec3 normal, float intensity)
 {
-	return max(0.08, dot(normal, -direction) * intensity);
+	return max(0.04, dot(normal, -direction) * intensity);
 }
 
 void main()
@@ -38,7 +38,7 @@ void main()
 	vec3 material0Color = texture(materials[0].diffusemap, mapCoord_FS * materials[0].horizontalScaling).rgb;
 	vec3 material1Color = texture(materials[1].diffusemap, mapCoord_FS * materials[1].horizontalScaling).rgb;
 
-	float[2] materialAlpha = {0,0};
+	float[2] materialAlpha = float[](0,0);
 	
 	if (normal.y > 0.5){
 		materialAlpha[1] = 1;

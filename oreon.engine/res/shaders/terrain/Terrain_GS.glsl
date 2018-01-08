@@ -71,7 +71,7 @@ void main() {
 			
 			vec3 normal = normalize(texture(normalmap, mapCoord_GS[k]).rgb);
 			
-			float[2] materialAlpha = {0,0};
+			float[2] materialAlpha = float[](0,0);
 	
 			if (normal.y > 0.5){
 				materialAlpha[1] = 1;
