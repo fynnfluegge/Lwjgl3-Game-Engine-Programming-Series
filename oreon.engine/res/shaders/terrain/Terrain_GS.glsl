@@ -57,7 +57,9 @@ void main() {
 		displacement[i] = vec3(0,0,0);
 	}
 
-	float dist = (distance(gl_in[0].gl_Position.xyz, cameraPosition) + distance(gl_in[1].gl_Position.xyz, cameraPosition) + distance(gl_in[2].gl_Position.xyz, cameraPosition))/3;
+	float dist = (distance(gl_in[0].gl_Position.xyz, cameraPosition)
+				 + distance(gl_in[1].gl_Position.xyz, cameraPosition) 
+				 + distance(gl_in[2].gl_Position.xyz, cameraPosition))/3;
 	
 	if (dist < tbn_range){
 	
