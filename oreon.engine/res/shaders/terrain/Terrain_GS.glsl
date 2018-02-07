@@ -71,11 +71,11 @@ void main() {
 			
 			float height = gl_in[k].gl_Position.y;
 			
-			vec3 normal = normalize(texture(normalmap, mapCoord_GS[k]).rgb);
+			vec3 normal = normalize(texture(normalmap, mapCoord_GS[k]).rbg);
 			
 			float[2] materialAlpha = float[](0,0);
 	
-			if (normal.y > 0.5){
+			if (normal.y > 0.8){
 				materialAlpha[1] = 1;
 			}
 			else{

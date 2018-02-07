@@ -9,6 +9,7 @@ import core.model.Material;
 import core.texturing.Texture2D;
 import core.utils.Util;
 import modules.gpgpu.NormalMapRenderer;
+import modules.gpgpu.SplatMapRenderer;
 
 public class TerrainConfig {
 	
@@ -56,9 +57,13 @@ public class TerrainConfig {
 					getHeightmap().bilinearFilter();
 					
 					NormalMapRenderer normalRenderer = new NormalMapRenderer(getHeightmap().getWidth());
-					normalRenderer.setStrength(12);
+					normalRenderer.setStrength(60);
 					normalRenderer.render(getHeightmap());
 					setNormalmap(normalRenderer.getNormalmap());
+					
+					// TODO
+					SplatMapRenderer splatmapRenderer = new SplatMapRenderer(getHeightmap().getWidth());
+					splatmapRenderer.render(getNormalmap());
 				}
 				if (tokens[0].equals("tessellationFactor")){
 					setTessellationFactor(Integer.valueOf(tokens[1]));

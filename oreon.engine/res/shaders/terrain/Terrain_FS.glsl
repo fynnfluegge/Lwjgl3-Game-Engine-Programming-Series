@@ -21,7 +21,7 @@ uniform int tbn_range;
 uniform vec3 cameraPosition;
 
 const vec3 direction = vec3(0.1,-1,0.1);
-const float intensity = 1.2;
+const float intensity = 0.8;
 
 float diffuse(vec3 direction, vec3 normal, float intensity)
 {
@@ -33,14 +33,14 @@ void main()
 	float dist = length(cameraPosition - position_FS);
 	float height = position_FS.y;
 
-	vec3 normal = normalize(texture(normalmap, mapCoord_FS).rgb);
+	vec3 normal = normalize(texture(normalmap, mapCoord_FS).rbg);
 	
 	vec3 material0Color = texture(materials[0].diffusemap, mapCoord_FS * materials[0].horizontalScaling).rgb;
 	vec3 material1Color = texture(materials[1].diffusemap, mapCoord_FS * materials[1].horizontalScaling).rgb;
 
 	float[2] materialAlpha = float[](0,0);
 	
-	if (normal.y > 0.5){
+	if (normal.y > 0.8){
 		materialAlpha[1] = 1;
 	}
 	else{
