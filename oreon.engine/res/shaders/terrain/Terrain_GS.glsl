@@ -19,9 +19,10 @@ out vec3 tangent_FS;
 out vec2 mapCoord_FS;
 
 uniform sampler2D normalmap;
+uniform sampler2D splatmap;
 uniform mat4 m_ViewProjection;
 uniform vec3 cameraPosition;
-uniform Material materials[2];
+uniform Material materials[3];
 uniform int tbn_range;
 
 vec3 tangent;
@@ -73,21 +74,16 @@ void main() {
 			
 			vec3 normal = normalize(texture(normalmap, mapCoord_GS[k]).rbg);
 			
-			float[2] materialAlpha = float[](0,0);
+			vec4 blendValues = texture(splatmap, mapCoord_GS[k]).rgba;
 	
-			if (normal.y > 0.8){
-				materialAlpha[1] = 1;
-			}
-			else{
-				materialAlpha[0] = 1;
-			}
+			float[4] blendValueArray = float[](blendValues.r,blendValues.g,blendValues.b,blendValues.a);
 			
 			float scale = 0;
-			for (int i=0; i<2; i++){
+			for (int i=0; i<3; i++){
 				scale += texture(materials[i].heightmap, mapCoord_GS[k]
 							* materials[i].horizontalScaling).r 
 							* materials[i].heightScaling 
-							* materialAlpha[i];
+							* blendValueArray[i];
 			}
 						
 			float attenuation = clamp(- distance(gl_in[k].gl_Position.xyz, cameraPosition)/(tbn_range-50) + 1,0.0,1.0);

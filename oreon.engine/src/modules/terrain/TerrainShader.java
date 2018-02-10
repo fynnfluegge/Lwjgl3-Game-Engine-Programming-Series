@@ -60,7 +60,7 @@ public class TerrainShader extends Shader{
 		
 		addUniform("tbn_range");
 		
-		for (int i=0; i<2; i++){
+		for (int i=0; i<3; i++){
 			addUniform("materials[" + i + "].diffusemap");
 			addUniform("materials[" + i + "].normalmap");
 			addUniform("materials[" + i + "].heightmap");
@@ -107,7 +107,7 @@ public class TerrainShader extends Shader{
 		setUniformi("tbn_range", terrainNode.getConfig().getTbn_Range());
 		
 		int texUnit = 3;
-		for (int i=0; i<2; i++){
+		for (int i=0; i<3; i++){
 			
 			glActiveTexture(GL_TEXTURE0 + texUnit);
 			terrainNode.getConfig().getMaterials().get(i).getDiffusemap().bind();

@@ -19,10 +19,13 @@ void main(void)
 	vec4 blendValues = vec4(0,0,0,0);
 	
 	if (slopeFactor > 0.5){
+		blendValues.x = 1.0;
+	}
+	else if (slopeFactor > 0.35){
 		blendValues.y = 1.0;
 	}
-	else{
-		blendValues.x = 1.0;
+	else {
+		blendValues.z = 1.0;
 	}
 	
 	imageStore(splatmap, x, blendValues);

@@ -17,7 +17,7 @@ struct Material
 
 uniform sampler2D normalmap;
 uniform sampler2D splatmap;
-uniform Material materials[2];
+uniform Material materials[3];
 uniform int tbn_range;
 uniform vec3 cameraPosition;
 
@@ -35,13 +35,10 @@ void main()
 	float height = position_FS.y;
 
 	vec3 normal = normalize(texture(normalmap, mapCoord_FS).rbg);
-	
-	vec3 material0Color = texture(materials[0].diffusemap, mapCoord_FS * materials[0].horizontalScaling).rgb;
-	vec3 material1Color = texture(materials[1].diffusemap, mapCoord_FS * materials[1].horizontalScaling).rgb;
 
 	vec4 blendValues = texture(splatmap, mapCoord_FS).rgba;
 	
-	float[4] splat_array = float[](blendValues.r,blendValues.g,blendValues.b,blendValues.a);
+	float[4] blendValueArray = float[](blendValues.r,blendValues.g,blendValues.b,blendValues.a);
 	
 	if (dist < tbn_range-50)
 	{
@@ -51,9 +48,9 @@ void main()
 		mat3 TBN = mat3(bitangent,normal,tangent_FS);
 		
 		vec3 bumpNormal;
-		for (int i=0; i<2; i++){
+		for (int i=0; i<3; i++){
 			
-			bumpNormal += (2*(texture(materials[i].normalmap, mapCoord_FS * materials[i].horizontalScaling).rbg) - 1) * splat_array[i];
+			bumpNormal += (2*(texture(materials[i].normalmap, mapCoord_FS * materials[i].horizontalScaling).rbg) - 1) * blendValueArray[i];
 		}
 		
 		bumpNormal = normalize(bumpNormal);
@@ -63,8 +60,12 @@ void main()
 		normal = normalize(TBN * bumpNormal);
 	}
 	
-	vec3 fragColor = material0Color * blendValues.r + 
-				     material1Color * blendValues.g;
+	vec3 fragColor = vec3(0,0,0);
+	
+	for (int i=0; i<3; i++){
+		fragColor +=  texture(materials[i].diffusemap, mapCoord_FS * materials[i].horizontalScaling).rgb
+					* blendValueArray[i];
+	}
 	
 	float diffuse = diffuse(direction, normal, intensity);
 
