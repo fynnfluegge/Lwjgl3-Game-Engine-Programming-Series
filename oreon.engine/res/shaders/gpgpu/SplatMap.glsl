@@ -16,8 +16,14 @@ void main(void)
 	
 	float slopeFactor = normal.z;
 	
-	float alpha0 = 
-	float alpha1 = 
+	vec4 blendValues = vec4(0,0,0,0);
 	
-	imageStore(splatmap, x, vec4(normal.x,1,0,1));
+	if (slopeFactor > 0.5){
+		blendValues.y = 1.0;
+	}
+	else{
+		blendValues.x = 1.0;
+	}
+	
+	imageStore(splatmap, x, blendValues);
 }

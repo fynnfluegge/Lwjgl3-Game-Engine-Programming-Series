@@ -18,6 +18,7 @@ public class TerrainConfig {
 	
 	private Texture2D heightmap;
 	private Texture2D normalmap;
+	private Texture2D splatmap;
 	
 	private int tessellationFactor;
 	private float tessellationSlope;
@@ -64,6 +65,7 @@ public class TerrainConfig {
 					// TODO
 					SplatMapRenderer splatmapRenderer = new SplatMapRenderer(getHeightmap().getWidth());
 					splatmapRenderer.render(getNormalmap());
+					setSplatmap(splatmapRenderer.getSplatmap());
 				}
 				if (tokens[0].equals("tessellationFactor")){
 					setTessellationFactor(Integer.valueOf(tokens[1]));
@@ -215,6 +217,14 @@ public class TerrainConfig {
 
 	public void setTbn_Range(int tbn_Range) {
 		this.tbn_Range = tbn_Range;
+	}
+
+	public Texture2D getSplatmap() {
+		return splatmap;
+	}
+
+	public void setSplatmap(Texture2D splatmap) {
+		this.splatmap = splatmap;
 	}
 
 }

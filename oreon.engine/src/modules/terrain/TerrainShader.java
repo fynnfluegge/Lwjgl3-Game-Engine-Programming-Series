@@ -2,6 +2,7 @@ package modules.terrain;
 
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE2;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 import core.kernel.Camera;
@@ -51,6 +52,7 @@ public class TerrainShader extends Shader{
 		
 		addUniform("heightmap");
 		addUniform("normalmap");
+		addUniform("splatmap");
 		
 		for (int i=0; i<8; i++){
 			addUniform("lod_morph_area[" + i + "]");
@@ -89,6 +91,10 @@ public class TerrainShader extends Shader{
 		terrainNode.getConfig().getNormalmap().bind();
 		setUniformi("normalmap", 1);
 		
+		glActiveTexture(GL_TEXTURE2);
+		terrainNode.getConfig().getSplatmap().bind();
+		setUniformi("splatmap", 2);
+		
 		setUniformi("tessellationFactor", terrainNode.getConfig().getTessellationFactor());
 		setUniformf("tessellationSlope", terrainNode.getConfig().getTessellationSlope());
 		setUniformf("tessellationShift", terrainNode.getConfig().getTessellationShift());
@@ -100,7 +106,7 @@ public class TerrainShader extends Shader{
 		
 		setUniformi("tbn_range", terrainNode.getConfig().getTbn_Range());
 		
-		int texUnit = 2;
+		int texUnit = 3;
 		for (int i=0; i<2; i++){
 			
 			glActiveTexture(GL_TEXTURE0 + texUnit);

@@ -31,7 +31,7 @@ public class SplatMapRenderer {
 		
 		computeShader.bind();
 		computeShader.updateUniforms(normalmap, N);
-		glBindImageTexture(0, normalmap.getId(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA16F);
+		glBindImageTexture(0, splatmap.getId(), 0, false, 0, GL_WRITE_ONLY, GL_RGBA16F);
 		glDispatchCompute(N/16,N/16,1);
 		glFinish();
 		splatmap.bind();
