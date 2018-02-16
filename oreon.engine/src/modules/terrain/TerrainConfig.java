@@ -62,7 +62,6 @@ public class TerrainConfig {
 					normalRenderer.render(getHeightmap());
 					setNormalmap(normalRenderer.getNormalmap());
 					
-					// TODO
 					SplatMapRenderer splatmapRenderer = new SplatMapRenderer(getHeightmap().getWidth());
 					splatmapRenderer.render(getNormalmap());
 					setSplatmap(splatmapRenderer.getSplatmap());
