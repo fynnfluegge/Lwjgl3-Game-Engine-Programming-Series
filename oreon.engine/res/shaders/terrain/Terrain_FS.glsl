@@ -23,10 +23,19 @@ uniform vec3 cameraPosition;
 
 const vec3 direction = vec3(0.1,-1,0.1);
 const float intensity = 0.8;
+const float zfar = 10000;
+const float znear = 0.1;
+const vec3 fogColor = vec3(0.65,0.85,0.9);
+const float sightRange = 0.6;
 
 float diffuse(vec3 direction, vec3 normal, float intensity)
 {
 	return max(0.04, dot(normal, -direction) * intensity);
+}
+
+float getFogFactor(float dist)
+{
+	return -0.0002/sightRange*(dist-(zfar)/10*sightRange) + 1;
 }
 
 void main()
@@ -70,6 +79,9 @@ void main()
 	float diffuse = diffuse(direction, normal, intensity);
 
 	fragColor *= diffuse;
+	
+	float fogFactor = getFogFactor(dist);
+	fragColor = mix(fogColor, fragColor, clamp(fogFactor,0,1));
 	
 	outputColor = vec4(fragColor,1.0);
 }

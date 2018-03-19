@@ -3,6 +3,9 @@ package core.kernel;
 import core.kernel.Window;
 import modules.skydome.Skydome;
 import modules.terrain.Terrain;
+
+import org.lwjgl.glfw.GLFW;
+
 import core.configs.Default;
 import core.kernel.Camera;
 
@@ -50,6 +53,12 @@ public class RenderingEngine {
 	}
 	
 	public void update(){
+		if (Input.getInstance().isKeyPushed(GLFW.GLFW_KEY_E)){
+			if (CommonConfig.getInstance().isWireframe())
+				CommonConfig.getInstance().setWireframe(false);
+			else
+				CommonConfig.getInstance().setWireframe(true);
+		}
 	}
 	
 	public void shutdown(){}

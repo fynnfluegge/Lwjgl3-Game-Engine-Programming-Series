@@ -7,4 +7,5 @@ public class Constants {
 	public static final float ZNEAR = 0.1f;
 	
 	public static final String RENDERER_COMPONENT = "Renderer";
+	public static final String WIREFRAME_RENDERER_COMPONENT = "WireframeRenderer";
 }

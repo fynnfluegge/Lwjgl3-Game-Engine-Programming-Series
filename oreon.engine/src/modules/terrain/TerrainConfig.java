@@ -1,12 +1,19 @@
 package modules.terrain;
 
+import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.GL_RED;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glGetTexImage;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.model.Material;
 import core.texturing.Texture2D;
+import core.utils.BufferUtil;
 import core.utils.Util;
 import modules.gpgpu.NormalMapRenderer;
 import modules.gpgpu.SplatMapRenderer;
@@ -19,6 +26,8 @@ public class TerrainConfig {
 	private Texture2D heightmap;
 	private Texture2D normalmap;
 	private Texture2D splatmap;
+	
+	private FloatBuffer heightmapDataBuffer;
 	
 	private int tessellationFactor;
 	private float tessellationSlope;
@@ -56,6 +65,8 @@ public class TerrainConfig {
 					setHeightmap(new Texture2D(tokens[1]));
 					getHeightmap().bind();
 					getHeightmap().bilinearFilter();
+					
+					createHeightmapDataBuffer();
 					
 					NormalMapRenderer normalRenderer = new NormalMapRenderer(getHeightmap().getWidth());
 					normalRenderer.setStrength(60);
@@ -134,6 +145,13 @@ public class TerrainConfig {
 	
 	private int updateMorphingArea(int lod){
 		return (int) ((scaleXZ/TerrainQuadtree.getRootNodes()) / (Math.pow(2, lod)));
+	}
+	
+	public void createHeightmapDataBuffer(){
+		
+		heightmapDataBuffer = BufferUtil.createFloatBuffer(getHeightmap().getWidth() * getHeightmap().getHeight());
+		heightmap.bind();
+		glGetTexImage(GL_TEXTURE_2D,0,GL_RED,GL_FLOAT,heightmapDataBuffer);
 	}
 	
 	public float getScaleY() {
@@ -224,6 +242,14 @@ public class TerrainConfig {
 
 	public void setSplatmap(Texture2D splatmap) {
 		this.splatmap = splatmap;
+	}
+
+	public FloatBuffer getHeightmapDataBuffer() {
+		return heightmapDataBuffer;
+	}
+
+	public void setHeightmapDataBuffer(FloatBuffer heightmapDataBuffer) {
+		this.heightmapDataBuffer = heightmapDataBuffer;
 	}
 
 }
