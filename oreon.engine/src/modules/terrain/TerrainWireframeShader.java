@@ -1,7 +1,6 @@
 package modules.terrain;
 
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE2;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
@@ -51,7 +50,6 @@ public class TerrainWireframeShader extends Shader{
 		addUniform("tessellationShift");
 		
 		addUniform("heightmap");
-		addUniform("normalmap");
 		addUniform("splatmap");
 		
 		for (int i=0; i<8; i++){
@@ -61,8 +59,6 @@ public class TerrainWireframeShader extends Shader{
 		addUniform("tbn_range");
 		
 		for (int i=0; i<3; i++){
-			addUniform("materials[" + i + "].diffusemap");
-			addUniform("materials[" + i + "].normalmap");
 			addUniform("materials[" + i + "].heightmap");
 			addUniform("materials[" + i + "].heightScaling");
 			addUniform("materials[" + i + "].horizontalScaling");
@@ -87,10 +83,6 @@ public class TerrainWireframeShader extends Shader{
 		terrainNode.getConfig().getHeightmap().bind();
 		setUniformi("heightmap", 0);
 		
-		glActiveTexture(GL_TEXTURE1);
-		terrainNode.getConfig().getNormalmap().bind();
-		setUniformi("normalmap", 1);
-		
 		glActiveTexture(GL_TEXTURE2);
 		terrainNode.getConfig().getSplatmap().bind();
 		setUniformi("splatmap", 2);
@@ -110,18 +102,8 @@ public class TerrainWireframeShader extends Shader{
 		for (int i=0; i<3; i++){
 			
 			glActiveTexture(GL_TEXTURE0 + texUnit);
-			terrainNode.getConfig().getMaterials().get(i).getDiffusemap().bind();
-			setUniformi("materials[" + i + "].diffusemap", texUnit);
-			texUnit++;
-			
-			glActiveTexture(GL_TEXTURE0 + texUnit);
 			terrainNode.getConfig().getMaterials().get(i).getDisplacemap().bind();
 			setUniformi("materials[" + i + "].heightmap", texUnit);
-			texUnit++;
-			
-			glActiveTexture(GL_TEXTURE0 + texUnit);
-			terrainNode.getConfig().getMaterials().get(i).getNormalmap().bind();
-			setUniformi("materials[" + i + "].normalmap", texUnit);
 			texUnit++;
 			
 			setUniformf("materials[" + i + "].heightScaling", terrainNode.getConfig().getMaterials().get(i).getDisplaceScale());
