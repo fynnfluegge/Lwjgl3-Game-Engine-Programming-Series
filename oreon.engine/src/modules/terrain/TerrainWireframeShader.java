@@ -41,7 +41,6 @@ public class TerrainWireframeShader extends Shader{
 		addUniform("index");
 		addUniform("gap");
 		addUniform("lod");
-		addUniform("scaleY");
 		addUniform("location");
 		addUniform("cameraPosition");
 		
@@ -69,7 +68,6 @@ public class TerrainWireframeShader extends Shader{
 		
 		TerrainNode terrainNode = (TerrainNode) object;
 		
-		setUniformf("scaleY", terrainNode.getConfig().getScaleY());
 		setUniformi("lod", terrainNode.getLod());
 		setUniform("index", terrainNode.getIndex());
 		setUniform("location", terrainNode.getLocation());
