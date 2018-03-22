@@ -54,10 +54,10 @@ public class RenderingEngine {
 	
 	public void update(){
 		if (Input.getInstance().isKeyPushed(GLFW.GLFW_KEY_E)){
-			if (CommonConfig.getInstance().isWireframe())
-				CommonConfig.getInstance().setWireframe(false);
+			if (RenderContext.getInstance().isWireframe())
+				RenderContext.getInstance().setWireframe(false);
 			else
-				CommonConfig.getInstance().setWireframe(true);
+				RenderContext.getInstance().setWireframe(true);
 		}
 	}
 	

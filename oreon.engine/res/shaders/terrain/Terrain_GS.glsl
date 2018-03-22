@@ -18,7 +18,6 @@ out vec3 position_FS;
 out vec3 tangent_FS;
 out vec2 mapCoord_FS;
 
-uniform sampler2D normalmap;
 uniform sampler2D splatmap;
 uniform mat4 m_ViewProjection;
 uniform vec3 cameraPosition;
@@ -71,8 +70,6 @@ void main() {
 			displacement[k] = vec3(0,1,0);
 			
 			float height = gl_in[k].gl_Position.y;
-			
-			vec3 normal = normalize(texture(normalmap, mapCoord_GS[k]).rbg);
 			
 			vec4 blendValues = texture(splatmap, mapCoord_GS[k]).rgba;
 	

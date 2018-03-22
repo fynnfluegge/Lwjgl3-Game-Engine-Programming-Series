@@ -3,7 +3,7 @@ package modules.terrain;
 import core.buffers.PatchVBO;
 import core.configs.Default;
 import core.kernel.Camera;
-import core.kernel.CommonConfig;
+import core.kernel.RenderContext;
 import core.math.Vec2f;
 import core.math.Vec3f;
 import core.renderer.RenderInfo;
@@ -64,7 +64,7 @@ public class TerrainNode extends GameObject{
 	{
 		if (isleaf)
 		{	
-			if (CommonConfig.getInstance().isWireframe()){
+			if (RenderContext.getInstance().isWireframe()){
 				getComponents().get(Constants.WIREFRAME_RENDERER_COMPONENT).render();
 			}
 			else{

@@ -1,13 +1,13 @@
 package core.kernel;
 
-public class CommonConfig {
+public class RenderContext {
 
-	private static CommonConfig instance = null;
+	private static RenderContext instance = null;
 	
-	public static CommonConfig getInstance(){
+	public static RenderContext getInstance(){
 		
 		if(instance == null){
-			instance = new CommonConfig();
+			instance = new RenderContext();
 		}
 		return instance;
 	}
